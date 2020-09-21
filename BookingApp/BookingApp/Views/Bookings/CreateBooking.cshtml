@@ -1,0 +1,46 @@
+﻿@model BookingApp.Models.Booking
+
+@{
+    ViewBag.Title = "CreateBooking";
+}
+
+<h2>Rezervacija</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+        <hr />
+        <div class="form-group">
+            @Html.Label("Korisnik")
+            @Html.DropDownList("ConsumerId", null,"--Izaberite korisnika--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(b => b.ConsumerId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Smestaj")
+            @Html.DropDownList("StayId", null,"--Izaberite smestaj--", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.StayId, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CheckIn)
+            @Html.TextBoxFor(model => model.CheckIn,  new { @class = "form-control", @type = "date"})
+            @Html.ValidationMessageFor(model => model.CheckIn, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CheckOut)
+            @Html.TextBoxFor(model => model.CheckOut, new { @class = "form-control", @type = "date" } )
+            @Html.ValidationMessageFor(model => model.CheckOut, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

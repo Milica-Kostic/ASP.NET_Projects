@@ -1,0 +1,29 @@
+﻿@model BookingApp.Models.Stay
+
+@{
+    ViewBag.Title = "DeleteStay";
+}
+
+<div class="row">
+    <div class="col-lg-10">
+        <h3>Da li ste sigurni da zelite da izbrisete rezervaciju?</h3>
+    </div>
+</div>
+@using (Html.BeginForm("Delete", "Stays"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(s => s.Id)
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Cancel", "Index", "Consumers", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+}

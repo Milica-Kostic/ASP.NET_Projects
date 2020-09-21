@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BookingApp.Models.Stay>
+@{
+    ViewBag.Title = "Index";
+}
+
+<center><h2>Lista objekata za izdavanje</h2></center>
+
+<table id="stays" class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Naziv</th>
+            <th>Tip smestaja</th>
+            <th>Cena</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            var table = $("#stays").DataTable({
+                ajax: {
+                    url: "/api/stays",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        columns: "StayName",
+                        render: function (data, type, stay) {
+                            return "<a href='/stays/StaysInfo/" + stay.Id + "'>" + stay.StayName + "</a>";
+                        }
+                    },
+                    {
+                        data:"PropertyType.TypeName"
+                    },
+                    {
+                        data: "Price",
+                        render: function (data, type, stay) {
+                            return stay.Price;
+                        }
+                    }
+                ]
+
+            });
+        });
+    </script>
+}

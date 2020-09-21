@@ -1,0 +1,63 @@
+﻿@model BookingApp.ViewModels.StaysViewModel
+@{
+    ViewBag.Title = "CreateStay";
+}
+
+    <h2>Objekat</h2>
+
+@using (Html.BeginForm("CreateStay", "Stays"))
+{
+    <div class="form-group">
+        @Html.LabelFor(s => s.Stays.StayName)
+        @Html.TextBoxFor(s => s.Stays.StayName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Stays.StayName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(s => s.Stays.Address)
+        @Html.TextBoxFor(s => s.Stays.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Stays.Address)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(s => s.Stays.Price)
+        @Html.TextBoxFor(s => s.Stays.Price, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Stays.Price)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Grad")
+        @Html.DropDownListFor(s => s.Stays.CityId, new SelectList(Model.Cities, "Id", "CityName"), "--Izaberite grad--", new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Stays.CityId)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Drzava")
+        @Html.DropDownListFor(s => s.Stays.CountryId, new SelectList(Model.Countries, "Id", "CountryName"), "--Izaberite drzavu--", new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Stays.CountryId)
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Tip smestaja")
+        @Html.DropDownListFor(s => s.Stays.PropertyTypeId, new SelectList(Model.PropertyTypes, "Id", "TypeName"), "--Izaberite tip smestaja--", new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Stays.PropertyTypeId)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(s => s.Stays.Description)
+        @Html.TextAreaFor(s => s.Stays.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(s => s.Stays.Description)
+    </div>
+
+    @Html.HiddenFor(s => s.Stays.Id)
+    @Html.AntiForgeryToken()
+
+    <input type="submit" class="btn btn-primary" value="Sacuvaj" />
+
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

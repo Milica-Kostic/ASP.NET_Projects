@@ -1,0 +1,43 @@
+﻿@model BookingApp.Models.Booking
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Izmeni</h2>
+
+@using (Html.BeginForm())
+{
+    
+ <hr />
+    <div class="form-group">
+        @Html.Label("Korisnik")
+        @Html.DropDownList("ConsumerId", null, new { @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.ConsumerId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Smestaj")
+        @Html.DropDownList("StayId", null, new { @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.StayId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(b => b.CheckIn)
+        @Html.TextBoxFor(b => b.CheckIn,new { @class = "form-control"})
+        @Html.ValidationMessageFor(model => model.CheckIn, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(b => b.CheckOut)
+        @Html.TextBoxFor(b => b.CheckOut,new { @class = "form-control"} )
+        @Html.ValidationMessageFor(model => model.CheckOut, "", new { @class = "text-danger" })
+    </div>
+    @Html.HiddenFor(b => b.ConsumerId)
+    @Html.HiddenFor(b => b.StayId)
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+}

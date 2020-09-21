@@ -1,0 +1,31 @@
+﻿@model BookingApp.Models.Booking
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<div class="row">
+    <div class="col-lg-10">
+        <h3>Da li ste sigurni da zelite da izbrisete rezervaciju?</h3>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(b => b.ConsumerId)
+    @Html.HiddenFor(b => b.StayId)
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Cancel", "Index", "Bookings", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+}

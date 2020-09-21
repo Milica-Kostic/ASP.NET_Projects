@@ -1,0 +1,44 @@
+﻿@model BookingApp.ViewModels.BookingsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+<h1><strong>Rezervacija</strong></h1>
+<hr />
+@Html.HiddenFor(s => s.Booking.ConsumerId)
+@Html.HiddenFor(s => s.Booking.StayId)
+<h3>Informacije o klijentu</h3>
+<div class="row">
+    <div class="col-lg-6">
+        <p>Ime: <strong>@Model.Consumer.Name</strong></p>
+        <p>Prezime: <strong>@Model.Consumer.LastName</strong></p>
+        <p>Telefon: <strong>@Model.Consumer.Phone</strong></p>
+    </div>
+    <div class="col-lg-6"></div>
+</div>
+<hr />
+<h3>Informacije o smestaju</h3>
+<div class="row">
+    <div class="col-lg-6">
+        <p>Naziv smestaja: <strong>@Model.Stay.StayName</strong></p>
+        <p>Tip smestaja: <strong>@Model.Stay.PropertyType.TypeName</strong></p>
+        <p>Adresa: <strong>@Model.Stay.Address</strong></p>
+        <p>Grad: <strong>@Model.Stay.City.CityName</strong></p>
+        <p>Drzava: <strong>@Model.Stay.Country.CountryName</strong></p>
+        <p>Cena: <strong>@Model.Stay.Price</strong></p>
+    </div>
+    <div class="col-lg-6"></div>
+</div>
+<hr />
+<h3>Opis smestaja</h3>
+<div class="row">
+    <div class="col-lg-12">
+        <p>Opis: <strong>@Model.Stay.Description</strong></p>
+    </div>
+</div>
+    
+
+
+
+
+
