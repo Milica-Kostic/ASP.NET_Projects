@@ -1,0 +1,65 @@
+﻿@page
+@model RazorOrderingSystemApp.Pages.Restaurants.DisplayRestaurantModel
+@{
+    ViewData["Title"] = "Display";
+}
+@if (Model.Restaurant is null)
+{
+    <h4>The requested record was not found!</h4>
+}
+else
+{
+    <h3 class="text-center">@Model.Restaurant.RestName</h3>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Category of restaurant</strong></td>
+                        <td>@Model.CategoryPurchased</td>
+                    </tr>
+                    <tr>
+                        <td><strong>City</strong></td>
+                        <td>@Model.Restaurant.City</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>@Model.Restaurant.RestDescription</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a asp-page="./DeleteRestaurant" asp-route-id="@Model.Restaurant.Id" class="btn btn-danger">Delete Restaurant</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="UpdateModel.Id" value="@Model.Restaurant.Id" type="hidden" />
+
+                <div class="form-group">
+                    <div>
+                        <label class="col-form-label">Name of Restaurant: </label>
+                        <input asp-for="UpdateModel.RestName" value="@Model.Restaurant.RestName" class="form-control" />
+                        <span asp-validation-for="UpdateModel.RestName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label class="col-form-label">City</label>
+                        <input asp-for="UpdateModel.City" value="@Model.Restaurant.City" class="form-control" />
+                        <span asp-validation-for="UpdateModel.City" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label class="col-form-label">Description</label>
+                        <input asp-for="UpdateModel.RestDescription" value="@Model.Restaurant.RestDescription" class="form-control" />
+                        <span asp-validation-for="UpdateModel.RestDescription" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update Restaurant" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    
+}

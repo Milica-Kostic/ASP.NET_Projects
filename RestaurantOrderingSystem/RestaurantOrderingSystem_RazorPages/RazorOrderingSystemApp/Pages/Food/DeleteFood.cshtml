@@ -1,0 +1,26 @@
+﻿@page
+@model RazorOrderingSystemApp.Pages.Food.DeleteFoodModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+@if (Model.Food is null)
+{
+    <h3>The requested record was not found </h3>
+}
+else
+{
+    <div class="h4">
+        Are you sure you want to delete meal @Model.Food.FoodName?
+    </div>
+
+    <form method="post">
+        <input asp-for="Id" value="@Model.Id" type="hidden" />
+
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a asp-page="./DisplayFood" asp-route-id="@Model.Id" class="btn btn-outline-danger">Cancel</a>
+        </div>
+
+    </form>
+}

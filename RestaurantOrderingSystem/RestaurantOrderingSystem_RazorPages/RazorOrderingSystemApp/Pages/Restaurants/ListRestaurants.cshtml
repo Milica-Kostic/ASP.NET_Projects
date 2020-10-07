@@ -1,0 +1,36 @@
+﻿@page
+@model RazorOrderingSystemApp.Pages.Restaurants.ListRestaurantsModel
+@{
+    ViewData["Title"] = "Restaurants List";
+}
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 mx-auto">
+        <h3 class="text-center">Restaurants</h3>
+        <div class="form-group">
+            <a asp-page="./CreateRestaurant" class="btn btn-warning">Add Restaurant</a>
+        </div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Restaurant Name</th>
+                    <th>City</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var restaurant in Model.Restaurants)
+                {
+                    <tr>
+                        <td>@restaurant.RestName</td>
+                        <td>@restaurant.City</td>
+                        <td colspan="2">
+                            <a asp-page="./DisplayRestaurant" asp-route-id="@restaurant.Id" class="btn btn-warning float-right">Restaurant Details</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,64 @@
+﻿@page
+@model RazorOrderingSystemApp.Pages.Orders.DisplayOrderModel
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+@if (Model.Order is null)
+{
+    <h4>The requested record was not found!</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <h3 class="text-center">@Model.Order.OrderName</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Food</strong></td>
+                        <td>@Model.FoodPurchased</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date</strong></td>
+                        <td>@Model.Order.OrderDate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quantity</strong></td>
+                        <td>@Model.Order.Quantity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td>@string.Format("{0:C}", Model.Order.Total)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a asp-page="./DeleteOrder" asp-route-id="@Model.Order.Id" class="btn btn-danger">Delete Order</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input asp-for="UpdateModel.Id" value="@Model.Order.Id" type="hidden" />
+
+                <div class="form-group">
+                    <div>
+                        <label class="col-form-label"> Name of order </label>
+                        <input asp-for="UpdateModel.OrderName" value="@Model.Order.OrderName" class="form-control" />
+                        <span asp-validation-for="UpdateModel.OrderName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label class="col-form-label"> Quantity </label>
+                        <input asp-for="UpdateModel.Quantity" value="@Model.Order.Quantity" class="form-control" />
+                        <span asp-validation-for="UpdateModel.Quantity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update Order" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+

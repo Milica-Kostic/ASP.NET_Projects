@@ -1,0 +1,35 @@
+﻿@page
+@model RazorOrderingSystemApp.Pages.Orders.ListOrdersModel
+@{
+    ViewData["Title"] = "Orders List";
+}
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 mx-auto">
+        <h3 class="text-center">Orders</h3>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Order Name</th>
+                    <th>Order Date</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model.Orders)
+                {
+                    <tr>
+                        <td>@order.OrderName</td>
+                        <td>@order.OrderDate</td>
+                        <td>@order.Quantity</td>
+                        <td colspan="2">
+                            <a asp-page="./DisplayOrder" asp-route-id="@order.Id" class="btn btn-warning float-right">Order Details</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

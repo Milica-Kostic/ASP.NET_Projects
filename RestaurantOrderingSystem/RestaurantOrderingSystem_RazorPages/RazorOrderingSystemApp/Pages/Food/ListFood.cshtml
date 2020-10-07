@@ -1,0 +1,36 @@
+﻿@page
+@model RazorOrderingSystemApp.Pages.Food.ListFoodModel
+@{
+    ViewData["Title"] = "Menu";
+}
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 mx-auto">
+        <h3 class="text-center">Menu</h3>
+        <div class="form-group">
+            <a asp-page="./CreateFood" class="btn btn-warning">Add Menu Item</a>
+        </div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var food in Model.Food)
+                {
+                    <tr>
+                        <td>@food.FoodName</td>
+                        <td>@string.Format("{0:C}", food.Price)</td>
+                        <td colspan="2">
+                            <a asp-page="./DisplayFood" asp-route-id="@food.Id" class="btn btn-warning float-right">Item Details</a>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
