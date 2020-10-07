@@ -15,6 +15,9 @@ BookingApp
 
 
 RestaurantOrderingSystem
+
+ASP.NET Core skup aplikacija koje komuniciraju preko DAL-a sa bazom podataka
+
 - RestaurantOrderingSystem_DLL => Data Access Layer 
 - RestaurantOrderingSystem_API => Web API
 - RestaurantOrderingSystem_RazorPages => RazorPages Application
