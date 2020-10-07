@@ -1,0 +1,60 @@
+﻿@model MVCOrderingSystemApp.Models.Food.DisplayFoodModel
+@{
+    ViewData["Title"] = "Display";
+}
+
+@if (Model.Food is null)
+{
+    <h4>The requested record was not found!</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <h3 class="text-center">@Model.Food.FoodName</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Restaurant</strong></td>
+                        <td>@Model.ItemPurchased
+                        <td>
+                    </tr>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>@Model.Food.FoodDescription</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price</strong></td>
+                        <td>@string.Format("{0:C}", Model.Food.Price)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a asp-action="Delete" asp-route-id="@Model.Food.Id" class="btn btn-danger">Delete Item</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form asp-action="Update" method="post">
+                <input name="id" value="@Model.Food.Id" type="hidden" />
+
+                <div class="form-group">
+                    <div>
+                        <label class="col-form-label">Name</label>
+                        <input name="foodName" value="@Model.Food.FoodName" class="form-control" />
+                    </div>
+                    <div>
+                        <label class="col-form-label">Description</label>
+                        <input name="foodDesc" value="@Model.Food.FoodDescription" class="form-control" />
+                    </div>
+                    <div>
+                        <label class="col-form-label">Price</label>
+                        <input name="price" value="@Model.Food.Price" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update Item" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}

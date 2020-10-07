@@ -1,0 +1,22 @@
+﻿@model RestaurantDataLibrary.Models.RestaurantModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+@if (Model is null)
+{
+    <h3>The requested record was not found </h3>
+}
+else
+{
+    <div class="h4">
+        Are you sure you want to delete the restaurant @Model.RestName?
+    </div>
+    <form asp-action="Delete">
+        <input asp-for="Id" value="@Model.Id" type="hidden" />
+        <div class="form-group">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a href="/Restaurants/Display/@Model.Id" class="btn btn-outline-danger">Cancel</a>
+        </div>
+    </form>
+}

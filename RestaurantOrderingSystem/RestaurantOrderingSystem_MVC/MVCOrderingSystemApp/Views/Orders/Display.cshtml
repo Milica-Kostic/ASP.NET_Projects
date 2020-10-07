@@ -1,0 +1,59 @@
+﻿@model MVCOrderingSystemApp.Models.Orders.DisplayOrderModel
+@{
+    ViewData["Title"] = "Display";
+}
+
+@if (Model.Order is null)
+{
+    <h4>The requested record was not found!</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <h3 class="text-center">@Model.Order.OrderName</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Food</strong></td>
+                        <td>@Model.ItemPurchased</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Date</strong></td>
+                        <td>@Model.Order.OrderDate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Quantity</strong></td>
+                        <td>@Model.Order.Quantity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td>@string.Format("{0:C}", Model.Order.Total)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <a asp-action="Delete" asp-route-id="@Model.Order.Id" class="btn btn-danger">Delete Order</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <form asp-action="Update">
+                <input name="id" value="@Model.Order.Id" type="hidden" />
+
+                <div class="form-group">
+                    <div>
+                        <label class="col-form-label"> Name of order </label>
+                        <input name="orderName" value="@Model.Order.OrderName" class="form-control" />
+                    </div>
+                    <div>
+                        <label class="col-form-label"> Quantity </label>
+                        <input name="quantity" value="@Model.Order.Quantity" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Update Order" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+}

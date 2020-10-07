@@ -1,0 +1,49 @@
+﻿@model MVCOrderingSystemApp.Models.Food.CreateFoodModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3 class="text-center">Menu Item</h3>
+<div class="row">
+    <div class="col-lg-6 col-md-6 mx-auto">
+        <form asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="Food.FoodName" class="control-label">Name</label>
+                <input asp-for="Food.FoodName" class="form-control" />
+                <span asp-validation-for="Food.FoodName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Food.RestaurantId" class="control-label">Restaurant</label>
+                <select asp-for="Food.RestaurantId" asp-items="Model.RestItems" class="form-control"></select>
+                <span asp-validation-for="Food.RestaurantId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Food.Price" class="control-label">Price</label>
+                <input asp-for="Food.Price" class="form-control" />
+                <span asp-validation-for="Food.Price" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Food.FoodDescription" class="control-label">Description</label>
+                <textarea asp-for="Food.FoodDescription" class="form-control" ></textarea>
+                <span asp-validation-for="Food.FoodDescription" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add Item" class="btn btn-success" />
+                <a asp-action="Index" asp-controller="Food" class="btn btn-outline-success">Cancel</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
