@@ -14,6 +14,7 @@ BookingApp
 - JSON format za razmenu podataka
 
 
+
 RestaurantOrderingSystem
 
 ASP.NET Core skup aplikacija koje komuniciraju preko DAL-a sa bazom podataka
