@@ -1,0 +1,147 @@
+﻿@page "/Orders/Display/{Id:int}"
+@inject HttpClient http
+@inject NavigationManager navigationManager
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <h3>System error</h3>
+    <p>@errorString</p>
+}
+else if (DisplayModel.Order is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <h3 class="text-center">@DisplayModel.Order.OrderName</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Date</strong></td>
+                        <td>@DisplayModel.Order.OrderDate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Food</strong></td>
+                        <td>@DisplayModel.ItemPurchased</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total</strong></td>
+                        <td>@string.Format("{0:C}", DisplayModel.Order.Total)</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @if (confirmDelete == false)
+                            {
+                                <button class="btn btn-danger" @onclick="(() => confirmDelete = true)">
+                                    Delete Order
+                                </button>
+
+                            }
+                            else
+                            {
+                                <button class="btn btn-outline-danger" @onclick="HandleDeleteRecord">
+                                    Confirm Delete
+                                </button>
+                                <button class="btn btn-outline-secondary" @onclick="(() => confirmDelete = false)">
+                                    Cancel
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="h3 text-center">
+                Update information about @DisplayModel.Order.OrderName
+            </div>
+            <EditForm Model="@updateModel" OnValidSubmit="@HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary Model="@updateModel" />
+
+                <div class="form-group">
+                    <label for="name" class="control-label">Name</label>
+                    <InputText @bind-Value="updateModel.OrderName" id="name" class="form-control" />
+                    <ValidationMessage For="@(() => updateModel.OrderName)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <label for="qty" class="control-label">Quantity</label>
+                    <InputNumber @bind-Value="updateModel.Quantity" id="qty" class="form-control" />
+                    <ValidationMessage For="@(() => updateModel.Quantity)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Update Order" class="btn btn-primary" />
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private DisplayOrderViewModel DisplayModel = new DisplayOrderViewModel();
+    private UpdateOrderViewModel updateModel = new UpdateOrderViewModel();
+    private string errorString;
+    private bool confirmDelete = false;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        HttpResponseMessage response = await http.GetAsync($"api/orders/{Id}");
+        if (response.IsSuccessStatusCode)
+        {
+            DisplayModel = await response.Content.ReadFromJsonAsync<DisplayOrderViewModel>();
+            updateModel.Id = DisplayModel.Order.Id;
+            updateModel.OrderName = DisplayModel.Order.OrderName;
+            updateModel.Quantity = DisplayModel.Order.Quantity;
+            updateModel.FoodId = DisplayModel.Order.FoodId;
+            updateModel.Total = DisplayModel.Order.Total;
+
+
+        }
+        else
+        {
+            errorString = response.ReasonPhrase;
+        }
+    }
+
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            HttpResponseMessage response = await http.PutAsJsonAsync("api/orders", updateModel);
+
+            var foodResponse = await http.GetAsync("api/food");
+            var food = await foodResponse.Content.ReadFromJsonAsync<List<FoodModel>>();
+
+            DisplayModel.Order.Total = updateModel.Quantity * food.Where(f => f.Id == DisplayModel.Order.FoodId).First().Price;
+            DisplayModel.Order.OrderName = updateModel.OrderName;
+            DisplayModel.Order.Quantity = updateModel.Quantity;
+            DisplayModel.Order.FoodId = updateModel.FoodId;
+
+        }
+        catch (Exception ex)
+        {
+            errorString = ex.Message;
+        }
+
+    }
+
+    private async Task HandleDeleteRecord()
+    {
+        HttpResponseMessage response = await http.DeleteAsync($"api/orders/{Id}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            navigationManager.NavigateTo("orders/list");
+        }
+        else
+        {
+            errorString = response.ReasonPhrase;
+        }
+    }
+}

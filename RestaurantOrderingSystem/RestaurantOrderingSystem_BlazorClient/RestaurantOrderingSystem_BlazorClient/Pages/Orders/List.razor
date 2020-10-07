@@ -1,0 +1,61 @@
+﻿@page "/Orders/List"
+@inject HttpClient Http
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <h4>System Error</h4>
+    <p>@errorString</p>
+}
+else if (ordersList is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+            <h3 class="text-center">Orders</h3>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th width="28%">Name</th>
+                        <th width="28%">Date</th>
+                        <th width="28%">Total</th>
+                        <th width="16%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in ordersList)
+                    {
+                        <tr>
+                            <td>@order.OrderName</td>
+                            <td>@order.OrderDate</td>
+                            <td>@string.Format("{0:C}", order.Total)</td>
+                            <td class="text-center"><a href="/Orders/Display/@order.Id" class="btn btn-warning">Display Order</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code
+{
+    private List<OrderModel> ordersList;
+    private string errorString;
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage response = await Http.GetAsync("api/orders");
+
+        if (response.IsSuccessStatusCode)
+        {
+            ordersList = await response.Content.ReadFromJsonAsync<List<OrderModel>>();
+        }
+        else
+        {
+            errorString = response.ReasonPhrase;
+        }
+    }
+}
+

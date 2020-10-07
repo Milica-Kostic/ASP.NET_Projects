@@ -1,0 +1,148 @@
+﻿@page "/Restaurants/Display/{Id:int}"
+@inject HttpClient http
+@inject NavigationManager navigationManager
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <h4>System error</h4>
+    <p>@errorString </p>
+}
+else if (DisplayModel.Restaurant is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <h3 class="text-center">@DisplayModel.Restaurant.RestName</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Category</strong></td>
+                        <td>@DisplayModel.ItemPurchased</td>
+                    </tr>
+                    <tr>
+                        <td><strong>City</strong></td>
+                        <td>@DisplayModel.Restaurant.City</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>@DisplayModel.Restaurant.RestDescription</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @if (confirmDelete == false)
+                            {
+                                <button class="btn btn-danger" @onclick="(() => confirmDelete = true)">
+                                    Delete Restaurant
+                                </button>
+
+                            }
+                            else
+                            {
+                                <button class="btn btn-outline-danger" @onclick="HandleDeleteRecord">
+                                    Confirm Delete
+                                </button>
+                                <button class="btn btn-outline-secondary" @onclick="(() => confirmDelete = false)">
+                                    Cancel
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="h3 text-center">
+                Update information about @DisplayModel.Restaurant.RestName
+            </div>
+            <EditForm Model="@updateModel" OnValidSubmit="@HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary Model="@updateModel" />
+
+                <div class="form-group">
+                    <label for="name" class="control-label">Name</label>
+                    <InputText @bind-Value="updateModel.RestName" id="name" class="form-control" />
+                    <ValidationMessage For="@(() => updateModel.RestName)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <label for="city" class="control-label">City</label>
+                    <InputText @bind-Value="updateModel.City" id="city" class="form-control" />
+                    <ValidationMessage For="@(() => updateModel.City)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <label for="desc" class="control-label">Description</label>
+                    <InputText @bind-Value="updateModel.RestDescription" id="desc" class="form-control" />
+                    <ValidationMessage For="@(() => updateModel.RestDescription)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Update Restaurant" class="btn btn-primary" />
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code 
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private DisplayRestaurantViewModel DisplayModel = new DisplayRestaurantViewModel();
+    private UpdateRestaurantViewModel updateModel = new UpdateRestaurantViewModel();
+    private string errorString;
+    private bool confirmDelete = false;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        HttpResponseMessage response = await http.GetAsync($"api/restaurants/{Id}");
+        if (response.IsSuccessStatusCode)
+
+        {
+            DisplayModel = await response.Content.ReadFromJsonAsync<DisplayRestaurantViewModel>();
+            updateModel.Id = DisplayModel.Restaurant.Id;
+            updateModel.RestName = DisplayModel.Restaurant.RestName;
+            updateModel.RestDescription = DisplayModel.Restaurant.RestDescription;
+            updateModel.City = DisplayModel.Restaurant.City;
+        }
+        else
+        {
+            errorString = response.ReasonPhrase;
+        }
+    }
+
+
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            HttpResponseMessage response = await http.PutAsJsonAsync("api/restaurants", updateModel);
+
+            DisplayModel.Restaurant.Id = updateModel.Id;
+            DisplayModel.Restaurant.RestName = updateModel.RestName;
+            DisplayModel.Restaurant.RestDescription = updateModel.RestDescription;
+            DisplayModel.Restaurant.City = updateModel.City;
+        }
+        catch (Exception ex)
+        {
+            errorString = ex.Message;
+        }
+
+    }
+
+    private async Task HandleDeleteRecord()
+    {
+        HttpResponseMessage response = await http.DeleteAsync($"api/restaurants/{Id}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            navigationManager.NavigateTo("restaurants/list");
+        }
+        else
+        {
+            errorString = response.ReasonPhrase;
+        }
+    }
+}

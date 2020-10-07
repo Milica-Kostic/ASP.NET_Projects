@@ -1,0 +1,60 @@
+﻿@page "/Restaurants/List"
+@inject HttpClient Http
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <h4>System Error</h4>
+    <p>@errorString</p>
+}
+else if (restList is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+            <h3 class="text-center">Restaurants</h3>
+            <div class="form-group">
+                <a href="/Restaurants/Create" class="btn btn-warning">Add Restaurant</a>
+            </div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th width="40%">Name</th>
+                        <th width="40%">City</th>
+                        <th width="20%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var restaurant in restList)
+                    {
+                        <tr>
+                            <td>@restaurant.RestName</td>
+                            <td>@restaurant.City</td>
+                            <td class="text-center"><a href="/Restaurants/Display/@restaurant.Id" class="btn btn-warning">Display Restaurant</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code {
+    private List<RestaurantModel> restList;
+    private string errorString;
+    protected override async Task OnInitializedAsync()
+    {
+        HttpResponseMessage response = await Http.GetAsync("api/restaurants");
+
+        if (response.IsSuccessStatusCode)
+        {
+            restList = await response.Content.ReadFromJsonAsync<List<RestaurantModel>>();
+        }
+        else
+        {
+            errorString = response.ReasonPhrase;
+        }
+    }
+}
