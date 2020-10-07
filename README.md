@@ -12,3 +12,12 @@ BookingApp
 - Entity
 - Many to Many relacija
 - JSON format za razmenu podataka
+
+
+RestaurantOrderingSystem
+- RestaurantOrderingSystem_DLL => Data Access Layer 
+- RestaurantOrderingSystem_API => Web API
+- RestaurantOrderingSystem_RazorPages => RazorPages Application
+- RestaurantOrderingSystem_MVC => MVC Application
+- RestaurantOrderingSystem_BlazorServer => BlazorServer Application, connected to Web API
+- RestaurantOrderingSystem_BlazorClient => BlazorClient Application, connected to Web API
