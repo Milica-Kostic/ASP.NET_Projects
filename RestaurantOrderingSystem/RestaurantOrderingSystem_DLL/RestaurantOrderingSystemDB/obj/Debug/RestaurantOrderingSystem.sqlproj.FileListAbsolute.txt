@@ -1,0 +1,6 @@
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Debug\RestaurantOrderingSystem.dacpac
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Debug\RestaurantOrderingSystem.dll
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Debug\RestaurantOrderingSystem.pdb
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\obj\Debug\RestaurantOrderingSystem.sqlprojAssemblyReference.cache
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\obj\Debug\RestaurantOrderingSystem.dll
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\obj\Debug\RestaurantOrderingSystem.pdb

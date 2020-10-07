@@ -1,0 +1,5 @@
+D:\Projects\RestaurantOrderingSystem\RestaurantDataLibrary\bin\Debug\netcoreapp3.1\RestaurantDataLibrary.deps.json
+D:\Projects\RestaurantOrderingSystem\RestaurantDataLibrary\bin\Debug\netcoreapp3.1\RestaurantDataLibrary.dll
+D:\Projects\RestaurantOrderingSystem\RestaurantDataLibrary\obj\Debug\netcoreapp3.1\RestaurantDataLibrary.csprojAssemblyReference.cache
+D:\Projects\RestaurantOrderingSystem\RestaurantDataLibrary\obj\Debug\netcoreapp3.1\RestaurantDataLibrary.AssemblyInfoInputs.cache
+D:\Projects\RestaurantOrderingSystem\RestaurantDataLibrary\obj\Debug\netcoreapp3.1\RestaurantDataLibrary.AssemblyInfo.cs

@@ -1,0 +1,20 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       None
+
+** User actions
+     Rename
+       [dbo].[Food].[FoodDescription] (Column)
+     Alter
+       [dbo].[spFood_All] (Procedure)
+       [dbo].[spFood_GetById] (Procedure)
+       [dbo].[spFood_Insert] (Procedure)
+       [dbo].[spFood_Update] (Procedure)
+
+** Supporting actions

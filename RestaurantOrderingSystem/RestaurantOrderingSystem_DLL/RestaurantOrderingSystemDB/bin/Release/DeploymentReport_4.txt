@@ -1,0 +1,25 @@
+﻿** Highlights
+     Tables that will be rebuilt
+       None
+     Clustered indexes that will be dropped
+       None
+     Clustered indexes that will be created
+       None
+     Possible data issues
+       The type for column Description in table [dbo].[Food] is currently  NVARCHAR (250) NULL but is being changed to 
+         NVARCHAR (50) NULL. Data loss could occur.
+
+** User actions
+     Alter
+       [dbo].[Food] (Table)
+
+** Supporting actions
+     Refresh
+       [dbo].[spFood_All] (Procedure)
+       [dbo].[spFood_Delete] (Procedure)
+       [dbo].[spFood_GetById] (Procedure)
+       [dbo].[spFood_Insert] (Procedure)
+       [dbo].[spFood_Update] (Procedure)
+
+The type for column Description in table [dbo].[Food] is currently  NVARCHAR (250) NULL but is being changed to  NVARCHAR (50) NULL. Data loss could occur.
+

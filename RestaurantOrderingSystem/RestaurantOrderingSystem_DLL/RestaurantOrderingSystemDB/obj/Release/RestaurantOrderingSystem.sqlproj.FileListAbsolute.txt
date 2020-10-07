@@ -1,0 +1,10 @@
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Release\RestaurantOrderingSystem.dacpac
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Release\RestaurantOrderingSystem.dll
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Release\RestaurantOrderingSystem.pdb
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\obj\Release\RestaurantOrderingSystem.dll
+D:\Projects\RestaurantOrderingSystem\RestaurantOrderingSystem\obj\Release\RestaurantOrderingSystem.pdb
+D:\Projects\RestaurantAPP\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Release\RestaurantOrderingSystem.dacpac
+D:\Projects\RestaurantAPP\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Release\RestaurantOrderingSystem.dll
+D:\Projects\RestaurantAPP\RestaurantOrderingSystem\RestaurantOrderingSystem\bin\Release\RestaurantOrderingSystem.pdb
+D:\Projects\RestaurantAPP\RestaurantOrderingSystem\RestaurantOrderingSystem\obj\Release\RestaurantOrderingSystem.dll
+D:\Projects\RestaurantAPP\RestaurantOrderingSystem\RestaurantOrderingSystem\obj\Release\RestaurantOrderingSystem.pdb
