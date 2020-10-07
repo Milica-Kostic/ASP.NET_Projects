@@ -1,0 +1,64 @@
+﻿@page "/Food/List"
+@inject IHttpClientFactory _clientFactory
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <h4>System Error</h4>
+    <p>@errorString</p>
+}
+else if (food is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-10 col-md-10 mx-auto">
+            <h3 class="text-center">Menu</h3>
+            <div class="form-group">
+                <a href="/Food/Create" class="btn btn-warning">Add Item to menu</a>
+            </div>
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th width="40%">Name</th>
+                        <th width="40%">Price</th>
+                        <th width="20%"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var f in food)
+                    {
+                        <tr>
+                            <td>@f.FoodName</td>
+                            <td>@string.Format("{0:C}", f.Price)</td>
+                            <td class="text-center"><a href="/Food/Display/@f.Id" class="btn btn-warning">Item Details</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+@code {
+    private List<FoodModel> food;
+    private string errorString;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _clientFactory.CreateClient("API");
+
+        try
+        {
+            food = await client.GetFromJsonAsync<List<FoodModel>>("api/food");
+
+        }
+        catch (Exception ex)
+        {
+            errorString = ex.InnerException.Message;
+
+        }
+    }
+}

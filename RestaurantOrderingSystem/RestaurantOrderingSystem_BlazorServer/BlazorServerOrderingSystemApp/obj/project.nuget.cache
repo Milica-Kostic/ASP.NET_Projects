@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "smMOWwUwfAXI/eLUgq12kv7Pc/KHBLBYrBKE1zt7ClTwUEKN7XB3Ct3y0wiaPdCKIcQ6DdQ+F4LeBVm5AhBVmg==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Milica\\.nuget\\packages\\system.net.http.json\\3.2.1\\system.net.http.json.3.2.1.nupkg.sha512",
+    "C:\\Users\\Milica\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512"
+  ],
+  "logs": []
+}

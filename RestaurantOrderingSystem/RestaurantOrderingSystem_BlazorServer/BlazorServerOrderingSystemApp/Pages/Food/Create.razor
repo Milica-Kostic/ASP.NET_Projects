@@ -1,0 +1,110 @@
+﻿@page "/Food/Create"
+@inject IHttpClientFactory _clientFactory
+@inject NavigationManager navigationManager
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <h4>System Error</h4>
+    <p>@errorString</p>
+}
+else if (restaurantsList is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <h3 class="text-center">Add Menu Item</h3>
+            <EditForm Model="@food" OnValidSubmit="HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary Model="@food" />
+
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <InputText @bind-Value="food.FoodName" class="form-control" />
+                    <ValidationMessage For="@(() => food.FoodName)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Restaurant</label>
+                    <select @onchange="RestaurantItemChange" class="form-control">
+                        <option value="" disabled="disabled">Select restaurant</option>
+                        @foreach (var r in restaurantsList)
+                        {
+                            <option value="@r.Id">@r.RestName</option>
+                        }
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Price</label>
+                    <InputNumber @bind-Value="food.Price" class="form-control" />
+                    <ValidationMessage For="@(() => food.Price)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <InputTextArea @bind-Value="food.FoodDescription" class="form-control" />
+                    <ValidationMessage For="@(() => food.FoodDescription)" class="text-danger" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Add Item" class="btn btn-success" />
+                    <a href="/Food/List" class="btn btn-outline-success">Cancel</a>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code {
+    private FoodModel food = new FoodModel();
+    private List<RestaurantModel> restaurantsList = new List<RestaurantModel>();
+    private string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _clientFactory.CreateClient("API");
+
+        try
+        {
+            restaurantsList = await client.GetFromJsonAsync<List<RestaurantModel>>("api/restaurants");
+
+        }
+        catch (Exception ex)
+        {
+
+            errorString = ex.Message;
+        }
+
+    }
+
+    private void RestaurantItemChange(ChangeEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(e.Value.ToString()) == false)
+        {
+            food.RestaurantId = int.Parse(e.Value.ToString());
+        }
+        else
+        {
+            food.RestaurantId = 0;
+        }
+    }
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var client = _clientFactory.CreateClient("API");
+
+            var response = await client.PostAsJsonAsync("api/food", food);
+            var contents = await response.Content.ReadFromJsonAsync<CreateFoodViewModel>();
+            navigationManager.NavigateTo($"food/display/{contents.Id}");
+        }
+        catch (Exception ex)
+        {
+            errorString = ex.Message;
+        }
+    }
+}

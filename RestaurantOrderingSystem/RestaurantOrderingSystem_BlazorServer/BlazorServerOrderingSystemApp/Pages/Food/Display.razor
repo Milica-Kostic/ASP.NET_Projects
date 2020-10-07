@@ -1,0 +1,151 @@
+﻿@page "/Food/Display/{Id:int}"
+@inject IHttpClientFactory _clientFactory
+@inject NavigationManager navigationManager
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <h4>System error</h4>
+    <p>@errorString </p>
+}
+else if (DisplayModel.Food is null)
+{
+    <h4>Loading...</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 mx-auto">
+            <h3 class="text-center">@DisplayModel.Food.FoodName</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td><strong>Description</strong></td>
+                        <td>@DisplayModel.Food.FoodDescription</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Price</strong></td>
+                        <td>@string.Format("{0:C}", DisplayModel.Food.Price)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Restaurant</strong></td>
+                        <td>@DisplayModel.ItemPurchased</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            @if (confirmDelete == false)
+                            {
+                                <button class="btn btn-danger" @onclick="(() => confirmDelete = true)">
+                                    Delete Item
+                                </button>
+
+                            }
+                            else
+                            {
+                                <button class="btn btn-outline-danger" @onclick="HandleDeleteRecord">
+                                    Confirm Delete
+                                </button>
+                                <button class="btn btn-outline-secondary" @onclick="(() => confirmDelete = false)">
+                                    Cancel
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="h3 text-center">
+                Update information about @DisplayModel.Food.FoodName
+            </div>
+            <EditForm Model="@UpdateModel" OnValidSubmit="@HandleValidSubmit">
+                <DataAnnotationsValidator />
+                <ValidationSummary Model="@UpdateModel" />
+                
+                <div class="form-group">
+                    <label class="control-label">Name</label>
+                    <InputText @bind-Value="UpdateModel.FoodName" class="form-control" />
+                    <ValidationMessage For="@(() => UpdateModel.FoodName)" class="text-danger" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <InputText @bind-Value="UpdateModel.FoodDescription" class="form-control" />
+                    <ValidationMessage For="@(() => UpdateModel.FoodDescription)" class="text-danger" />
+                </div>
+                
+                <div class="form-group">
+                    <label class="control-label">Price</label>
+                    <InputNumber @bind-Value="UpdateModel.Price" class="form-control" />
+                    <ValidationMessage For="@(() => UpdateModel.Price)" class="text-danger" />
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Update Item" class="btn btn-primary" />
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+@code
+{
+    [Parameter]
+    public int Id { get; set; }
+
+    private DisplayFoodViewModel DisplayModel = new DisplayFoodViewModel();
+    private UpdateFoodViewModel UpdateModel = new UpdateFoodViewModel();
+    private string errorString;
+    private bool confirmDelete = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = _clientFactory.CreateClient("API");
+
+        var food = await client.GetAsync($"api/food/{Id}");
+
+        try
+        {
+            DisplayModel = await food.Content.ReadFromJsonAsync<DisplayFoodViewModel>();
+            UpdateModel.Id = DisplayModel.Food.Id;
+            UpdateModel.FoodName = DisplayModel.Food.FoodName;
+            UpdateModel.FoodDescription = DisplayModel.Food.FoodDescription;
+            UpdateModel.Price = DisplayModel.Food.Price;
+        }
+        catch (Exception ex)
+        {
+
+            errorString = ex.Message;
+        }
+    }
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var client = _clientFactory.CreateClient("API");
+
+            var restaurant = await client.PutAsJsonAsync("api/food", UpdateModel);
+            DisplayModel.Food.FoodName = UpdateModel.FoodName;
+            DisplayModel.Food.FoodDescription = UpdateModel.FoodDescription;
+            DisplayModel.Food.Price = UpdateModel.Price;
+        }
+        catch (Exception ex)
+        {
+
+            errorString = ex.Message;
+        }
+    }
+    private async Task HandleDeleteRecord()
+    {
+
+        var client = _clientFactory.CreateClient("API");
+
+        var restaurant = await client.DeleteAsync($"api/food/{Id}");
+
+        if (restaurant.IsSuccessStatusCode)
+        {
+            navigationManager.NavigateTo("food/list");
+        }
+        else
+        {
+            errorString = restaurant.ReasonPhrase;
+        }
+    }
+}

@@ -1,0 +1,97 @@
+﻿@page "/Restaurants/Create"
+@inject IHttpClientFactory _clientFactory
+@inject NavigationManager navigationManager
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 mx-auto">
+        <h3 class="text-center">Add Restaurant</h3>
+        <EditForm Model="@restaurant" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary Model="@restaurant" />
+
+            <div class="form-group">
+                <label class="control-label">Name</label>
+                <InputText @bind-Value="restaurant.RestName" class="form-control" />
+                <ValidationMessage For="@(() => restaurant.RestName)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Category</label>
+                <select @onchange="CategoryItemChange" class="form-control">
+                    <option value="">Select category</option>
+                    @foreach (var cat in categoryItems)
+                    {
+                        <option value="@cat.Id">@cat.CategoryName</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">City</label>
+                <InputText @bind-Value="restaurant.City" class="form-control" />
+                <ValidationMessage For="@(() =>restaurant.City)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Description</label>
+                <InputTextArea @bind-Value="restaurant.RestDescription" class="form-control" />
+                <ValidationMessage For="@(() => restaurant.RestDescription)" class="text-danger" />
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add restaurant" class="btn btn-success" />
+                <a href="./Restaurants/List" class="btn btn-outline-success">Cancel</a>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private RestaurantModel restaurant = new RestaurantModel();
+    private List<CategoryModel> categoryItems = new List<CategoryModel>();
+    private string errorString;
+
+    protected override async  Task OnInitializedAsync()
+    {
+        var client = _clientFactory.CreateClient("API");
+
+        try
+        {
+            categoryItems = await client.GetFromJsonAsync<List<CategoryModel>>("api/categories");
+
+        }
+        catch ( Exception ex)
+        {
+
+            errorString = ex.Message;
+        }
+
+    }
+
+    private void CategoryItemChange(ChangeEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(e.Value.ToString()) == false)
+        {
+            restaurant.CategoryId = int.Parse(e.Value.ToString());
+        }
+        else
+        {
+            restaurant.CategoryId = 0;
+        }
+    }
+    private async Task HandleValidSubmit()
+    {
+        try
+        {
+            var client = _clientFactory.CreateClient("API");
+
+            var response = await client.PostAsJsonAsync("api/restaurants", restaurant);
+            var contents = await response.Content.ReadFromJsonAsync<CreateRestaurantViewModel>();
+            navigationManager.NavigateTo($"restaurants/display/{contents.Id}");
+        }
+        catch(Exception ex)
+        {
+            errorString = ex.Message;
+        }
+    }
+}
