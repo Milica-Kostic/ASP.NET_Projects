@@ -4,7 +4,7 @@ ASP.NET Framework and ASP.NET Core projects
 BookingApp
 - ASP.NET Framework MVC CRUD Web aplikacija za rezervisanje smestaja
 - Registracija, login, logout i cuvanje sesije korisnika
-- Autentikacija i Autorizacija (ASP.NET Identity)
+- Autentifikacija i Autorizacija (ASP.NET Identity)
 - Klijentska i servisna validacija podataka na formama
 - Paginacija, sortiranje i filtriranje(search) - kijentska i serverska
 - REST API
