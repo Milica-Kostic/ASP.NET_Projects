@@ -126,15 +126,15 @@ namespace BookingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Booking booking)
         {
-            //if (booking.CheckIn < DateTime.Today)
-            //{
-            //    ModelState.AddModelError("CheckIn", "Datum mora biti veci od danasnjeg.");
-            //}
+            if (booking.CheckIn < DateTime.Today)
+            {
+                ModelState.AddModelError("CheckIn", "Datum mora biti veci od danasnjeg.");
+            }
 
-            //if (booking.CheckOut < booking.CheckIn)
-            //{
-            //    ModelState.AddModelError("CheckOut", "CheckOut mora biti veci od CheckIn-a");
-            //}
+            if (booking.CheckOut < booking.CheckIn)
+            {
+                ModelState.AddModelError("CheckOut", "CheckOut mora biti veci od CheckIn-a");
+            }
 
             if (ModelState.IsValid)
             {

@@ -96,7 +96,7 @@ namespace BookingApp.Controllers
             return RedirectToAction("Index", "Stays");
         }
 
-        //FILL SELECT LIST WITH JSON LIST
+        //FILL SELECT LIST WITH JSON
         public JsonResult CountryList(int Id)
         {
             string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
