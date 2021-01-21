@@ -36,10 +36,6 @@ namespace BookingApp.Models
 
         [StringLength(255)]
         public string Description { get; set; }
-
-
-
         public virtual ICollection<Booking> Bookings { get; set; }
-
     }
 }

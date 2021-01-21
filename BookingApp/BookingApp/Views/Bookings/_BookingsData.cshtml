@@ -39,10 +39,10 @@
 
                 </td>
                 <td>
-                    @booking.CheckIn
+                    @booking.CheckIn.ToLongDateString()
                 </td>
                 <td>
-                    @booking.CheckOut
+                    @booking.CheckOut.ToLongDateString()
                 </td>
                 @if (User.IsInRole("Admin"))
                 {

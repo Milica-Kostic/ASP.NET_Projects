@@ -385,3 +385,5 @@ C:\Users\Milica\Desktop\GIT\ASP.NET_Projects\BookingApp\BookingApp\bin\Microsoft
 C:\Users\Milica\Desktop\GIT\ASP.NET_Projects\BookingApp\BookingApp\bin\Microsoft.AspNet.SignalR.Core.xml
 C:\Users\Milica\Desktop\GIT\ASP.NET_Projects\BookingApp\BookingApp\bin\Microsoft.AspNet.SignalR.SystemWeb.pdb
 C:\Users\Milica\Desktop\GIT\ASP.NET_Projects\BookingApp\BookingApp\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Milica\Desktop\GIT\ASP.NET_Projects\BookingApp\BookingApp\obj\Debug\BookingApp.Migrations.DropConstraint.resources
+C:\Users\Milica\Desktop\GIT\ASP.NET_Projects\BookingApp\BookingApp\obj\Debug\BookingApp.Migrations.AddConstraint.resources
