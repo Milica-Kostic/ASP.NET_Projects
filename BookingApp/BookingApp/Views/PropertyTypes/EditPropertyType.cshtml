@@ -1,0 +1,33 @@
+﻿@model BookingApp.Models.PropertyType
+@{
+    ViewBag.Title = "EditPropertyType";
+}
+
+<h2>Vrsta smeštaja</h2>
+
+@using (Html.BeginForm("EditPropertyType", "PropertyTypes"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(p => p.TypeName)
+        @Html.TextBoxFor(p => p.TypeName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.TypeName, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.HiddenFor(p => p.Id)
+
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Odustani", "Index", "PropertyTypes", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+}
+

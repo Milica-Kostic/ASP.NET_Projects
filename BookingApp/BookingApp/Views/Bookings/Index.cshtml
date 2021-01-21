@@ -1,62 +1,34 @@
-﻿@model IEnumerable<BookingApp.Models.Booking>
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<center><h2>Rezervacije</h2></center>
+﻿<div id="dataModel"></div>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="form-group">
-            @Html.ActionLink("Kreiraj rezervaciju", "CreateBooking", "Bookings", new { @class = "btn btn-primary" })
-        </div>
-    </div>
-</div>
-
-<table id="bookings" class="table table-striped table-hover">
-    <thead>
-        <tr>
-            <th>Oglas</th>
-            <th>Korisnik</th>
-            <th>Check In </th>
-            <th>Check Out</th>
-            <th> </th>
-
-            
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var booking in Model)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(booking.Stay.StayName, "Details", new { id = booking.ConsumerId, id2 = booking.StayId })
-                </td>
-                <td>
-                    @booking.Consumer.Name
-
-                </td>
-                <td>
-                    @booking.CheckIn
-                </td>
-                <td>
-                    @booking.CheckOut
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = booking.ConsumerId, id2 = booking.StayId }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Delete", "Delete", new { id = booking.ConsumerId, id2 = booking.StayId }, new { @class = "btn btn-danger" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-@section scripts
+@section JavaScript
 {
-    <script>
-        $(document).ready(function () {
-            $("#bookings").DataTable({
-           
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="/signalr/hubs"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            var hubNotify = $.connection.bookingHub;
+
+            $.connection.hub.start().done(function () {
+                console.log("Start");
+                getAll();
             });
+
+            hubNotify.client.refreshBookingData = function () {
+                getAll();
+            };
         });
+
+        function getAll() {
+            var model = $('#dataModel');
+            $.ajax({
+                url: '/Bookings/GetBookingData',
+                contentType: 'application/html ; charset:utf-8',
+                type: 'GET',
+                dataType: 'html',
+                success: function (result) { model.empty().append(result); }
+            });
+        }
     </script>
 }

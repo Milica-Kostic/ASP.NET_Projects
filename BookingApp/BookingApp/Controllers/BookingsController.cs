@@ -6,8 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BookingApp.Hubs;
 using BookingApp.Models;
 using BookingApp.ViewModels;
+
 
 namespace BookingApp.Controllers
 {
@@ -23,35 +25,33 @@ namespace BookingApp.Controllers
         //GET
         public ActionResult Index()
         {
+            return View();
+        }
+
+        //GET DATA
+        public ActionResult GetBookingData()
+        {
             var bookings = _context.Bookings.Include(b => b.Consumer).Include(b => b.Stay);
-            
-            if (!User.Identity.IsAuthenticated)
-            {
-                return View("IndexNotAuthorized", bookings.ToList());
-            }
-            if (User.IsInRole("Admin"))
-            {
-                return View("Index", bookings.ToList());
-            }
-            return View("IndexUser", bookings.ToList());
+            return PartialView("_BookingsData", bookings.ToList());
         }
 
         //DETAILS
-        public ActionResult Details(int? id, int? id2 )
+        public ActionResult Details(int? id, int? id2, int? id3)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var booking = _context.Bookings.Find(id, id2);
+            var booking = _context.Bookings.Find(id);
+
             var viewModel = new BookingsViewModel
             {
                 Booking = booking,
-                Consumer = _context.Consumers.Find(id),
                 Stay = _context.Stays.Find(id2),
-                City = _context.Cities.ToList(),
-                Country = _context.Countries.ToList(),
+                Consumer = _context.Consumers.Find(id3),
+                Cities = _context.Cities.ToList(),
+                Countries = _context.Countries.ToList(),
                 PropertyTypes = _context.PropertyTypes.ToList()
             };
 
@@ -59,6 +59,7 @@ namespace BookingApp.Controllers
             {
                 return HttpNotFound();
             }
+
             return View("Details", viewModel);
         }
 
@@ -72,85 +73,112 @@ namespace BookingApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateBooking([Bind(Include = "ConsumerId,StayId,CheckIn,CheckOut")] Booking booking)
+        public ActionResult CreateBooking([Bind(Include = "Id,ConsumerId,StayId,CheckIn,CheckOut")] Booking booking)
         {
+            if (booking.CheckIn < DateTime.Today)
+            {
+                ModelState.AddModelError("CheckIn", "Datum mora biti veci od danasnjeg.");
+            }
+
+            if (booking.CheckOut < booking.CheckIn)
+            {
+                ModelState.AddModelError("CheckOut", "CheckOut mora biti veci od CheckIn-a");
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Bookings.Add(booking);
                 _context.SaveChanges();
+                BookingHub.RefreshBookings();
                 return RedirectToAction("Index");
             }
-
+            
             ViewBag.ConsumerId = new SelectList(_context.Consumers, "Id", "Name", booking.ConsumerId);
             ViewBag.StayId = new SelectList(_context.Stays, "Id", "StayName", booking.StayId);
+            
             return View(booking);
         }
 
         //EDIT
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int? id, int? id2)
+        public ActionResult Edit(int? id)
         {
             
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Booking booking = _context.Bookings.Find(id, id2);
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Booking booking = _context.Bookings.Find(id);
 
-                if (booking == null)
-                {
-                    return HttpNotFound();
-                }
+            if (booking == null)
+            {
+                return HttpNotFound();
+            }
 
-                ViewBag.ConsumerId = new SelectList(_context.Consumers, "Id", "Name", booking.ConsumerId);
-                ViewBag.StayId = new SelectList(_context.Stays, "Id", "StayName", booking.StayId);
-                return View(booking);
+            ViewBag.ConsumerId = new SelectList(_context.Consumers, "Id", "Name", booking.ConsumerId);
+            ViewBag.StayId = new SelectList(_context.Stays, "Id", "StayName", booking.StayId);
+            
+            return View(booking);
            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ConsumerId,StayId,CheckIn,CheckOut")] Booking booking)
+        public ActionResult Edit(Booking booking)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Index", "Bookings");
-            }
+            //if (booking.CheckIn < DateTime.Today)
+            //{
+            //    ModelState.AddModelError("CheckIn", "Datum mora biti veci od danasnjeg.");
+            //}
+
+            //if (booking.CheckOut < booking.CheckIn)
+            //{
+            //    ModelState.AddModelError("CheckOut", "CheckOut mora biti veci od CheckIn-a");
+            //}
+
             if (ModelState.IsValid)
             {
                 _context.Entry(booking).State = EntityState.Modified;
                 _context.SaveChanges();
+                BookingHub.RefreshBookings();
                 return RedirectToAction("Index");
             }
+            
             ViewBag.ConsumerId = new SelectList(_context.Consumers, "Id", "Name", booking.ConsumerId);
             ViewBag.StayId = new SelectList(_context.Stays, "Id", "StayName", booking.StayId);
+            
             return View(booking);
             
         }
 
         //DELETE
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int? id, int? id2)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Booking booking = _context.Bookings.Find(id, id2);
+
+            Booking booking = _context.Bookings.Find(id);
+            
             if (booking == null)
             {
                 return HttpNotFound();
             }
+            
             return View(booking);
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id, int id2)
+        public ActionResult DeleteConfirmed(int id)
         {
-            Booking booking = _context.Bookings.Find(id, id2);
+            Booking booking = _context.Bookings.Find(id);
             _context.Bookings.Remove(booking);
             _context.SaveChanges();
+            BookingHub.RefreshBookings();
+
             return RedirectToAction("Index");
         } 
     }

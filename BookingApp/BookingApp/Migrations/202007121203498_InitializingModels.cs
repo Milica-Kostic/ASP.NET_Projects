@@ -50,7 +50,7 @@ namespace BookingApp.Migrations
                 .ForeignKey("dbo.PropertyTypes", t => t.PropertyTypeId, cascadeDelete: true)
                 .Index(t => t.CityId)
                 .Index(t => t.CountryId)
-                .Index(t => t.PropertyTypeId);
+                .Index(t => t.PropertyTypeId);  
             
             CreateTable(
                 "dbo.Cities",

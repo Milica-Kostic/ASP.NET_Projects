@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qVY7Qqwf2k4kRho2ekbz92/fJrnKqtOujiZvOMQ4zASlyDwstrarQYn0Hbk32sBFrRNIsNJBgjzMO9pcvtnVKQ==",
+  "dgSpecHash": "hQkBjT9Y+QpyFhkPBg4DGO86w5qq5ayM5V7Bg5cKKVi97FusmWJAIluLCUeVEznJXoAXBHlMlXqGKuFFgCl2wA==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\RestaurantAPP\\RazorOrderingSystemApp\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj",
+  "projectFilePath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_RazorPages\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Milica\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
     "C:\\Users\\Milica\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

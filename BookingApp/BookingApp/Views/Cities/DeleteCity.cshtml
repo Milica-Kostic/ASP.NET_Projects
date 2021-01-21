@@ -1,0 +1,32 @@
+﻿@model BookingApp.Models.City
+@{
+    ViewBag.Title = "DeleteCity";
+}
+
+<div class="row">
+    <div class="col-lg-10">
+        <h3>Da li ste sigurni da zelite da izbrisete grad @Model.CityName ?</h3>
+    </div>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(b => b.Id)
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <input type="submit" value="Izbriši" class="btn btn-danger" />
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Odustani", "Index", "Countries", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+
+}
+

@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Net.Http;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace BookingApp.Controllers
 {
@@ -42,22 +44,21 @@ namespace BookingApp.Controllers
             }
         }
 
-        //CREATE
+        //CREATE: view
         public ActionResult CreateStay()
         {
-            var cities = _context.Cities.ToList();
-            var countries = _context.Countries.ToList();
             var types = _context.PropertyTypes.ToList();
+
+            var cities = _context.Cities.ToList();
+
             var viewModel = new StaysViewModel
             {
                 Stays = new Stay(),
                 Cities = cities,
-                Countries = countries,
-                PropertyTypes = types
-
+                PropertyTypes = types,
             };
-            return View(viewModel);
 
+            return View(viewModel);
         }
 
         [HttpPost]
@@ -70,12 +71,8 @@ namespace BookingApp.Controllers
                 {
                     Stays = new Stay(),
                     Cities = _context.Cities.ToList(),
-                    Countries = _context.Countries.ToList(),
                     PropertyTypes = _context.PropertyTypes.ToList()
-
                 };
-
-                return View(viewModel);
             }
 
             if (vm.Stays.Id == 0)
@@ -89,14 +86,41 @@ namespace BookingApp.Controllers
                 staysInDb.Address = vm.Stays.Address;
                 staysInDb.Price = vm.Stays.Price;
                 staysInDb.CityId = vm.Stays.CityId;
-                staysInDb.CountryId = vm.Stays.CountryId;
                 staysInDb.PropertyTypeId = vm.Stays.PropertyTypeId;
                 staysInDb.Description = vm.Stays.Description;
 
             }
+
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Stays");
+        }
+
+        //FILL SELECT LIST WITH JSON LIST
+        public JsonResult CountryList(int Id)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+            SqlConnection connection = new SqlConnection(connectionString);
+
+            string query = "SELECT cou.Id, cou.CountryName FROM Cities AS c INNER JOIN Countries AS cou ON c.CountryId = cou.Id WHERE c.Id = '" + Id + "'";
+
+            SqlCommand cm = new SqlCommand(query, connection);
+
+            connection.Open();
+
+            SqlDataReader dataReader = cm.ExecuteReader();
+
+            List<SelectListItem> list = new List<SelectListItem>();
+
+            while (dataReader.Read())
+            {
+                list.Add(new SelectListItem { Text = dataReader[1].ToString(), Value = dataReader[0].ToString() });
+            }
+
+            connection.Close();
+
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         //EDIT
@@ -112,7 +136,6 @@ namespace BookingApp.Controllers
             {
                 Stays = stays,
                 Cities = _context.Cities.ToList(),
-                Countries = _context.Countries.ToList(),
                 PropertyTypes = _context.PropertyTypes.ToList()
             };
 
@@ -121,9 +144,7 @@ namespace BookingApp.Controllers
                 return HttpNotFound();
             }
 
-            
             return View("CreateStay", viewModel);
-
         }
         
         //DELETE
@@ -133,16 +154,19 @@ namespace BookingApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             if (saveChangesError.GetValueOrDefault())
             {
                 ViewBag.ErrorMessage = "Delete failed. Try again, and if the problem persists see your system administrator.";
             }
+
             var stays = _context.Stays.Find(id);
 
             if (stays == null)
             {
                 return HttpNotFound();
             }
+
             return View(stays);
         }
 
@@ -151,16 +175,15 @@ namespace BookingApp.Controllers
         {
             try
             {
-               Stay stays = _context.Stays.Find(id);
+                Stay stays = _context.Stays.Find(id);
 
                 var viewModel = new StaysViewModel
                 {
                     Stays = stays,
                     Cities = _context.Cities.ToList(),
-                    Countries = _context.Countries.ToList(),
                     PropertyTypes = _context.PropertyTypes.ToList()
                 };
-                
+
                 _context.Stays.Remove(stays);
                 _context.SaveChanges();
             }
@@ -168,6 +191,7 @@ namespace BookingApp.Controllers
             {
                 return RedirectToAction("DeleteStay", new { saveChangesError = true });
             }
+
             return RedirectToAction("Index", "Stays");
         }
 
@@ -176,18 +200,16 @@ namespace BookingApp.Controllers
         public ActionResult StaysInfo(int id)
         {
             Stay stay = _context.Stays.Include(s => s.City)
-                .Include(s => s.Country)
                 .Include(s => s.PropertyType)
+                .Include(s => s.City.Country)
                 .SingleOrDefault(c => c.Id == id);
 
             if (stay == null)
+            {
                 return HttpNotFound();
-            //Stay stay = StaysInfo(id);
+            }
+
             return View(stay);
-        }
-        public ActionResult UpdateStay()
-        {
-            return View();
         }
     }
 }

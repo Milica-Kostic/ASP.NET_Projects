@@ -1,0 +1,36 @@
+﻿@model BookingApp.Models.PropertyType
+@{
+    ViewBag.Title = "CreatePropertyType";
+}
+
+<h2>Vrsta smeštaja</h2>
+
+@using (Html.BeginForm("CreatePropertyType", "PropertyTypes"))
+{
+    @Html.AntiForgeryToken()
+
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(p => p.TypeName)
+        @Html.TextBoxFor(p => p.TypeName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.TypeName.Length, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Odustani", "Index", "PropertyTypes", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

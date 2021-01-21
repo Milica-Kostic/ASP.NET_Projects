@@ -3,52 +3,47 @@
     ViewBag.Title = "CreateConsumer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (Model == null)
-{
-    <h2>Dodaj korisnika</h2>
-}
-else
-{
-    <h2>Izmeni @Model.Name</h2>
-}
 
+<h2>Korisnik</h2>
 <hr />
-<div class="row">
-    <div class="col-lg-4">
-        @using (Html.BeginForm("CreateConsumer", "Consumers"))
-        {
-            <div class=" form-group">
-                @Html.LabelFor(p => p.Name)
-                @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
-                @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-danger" })
-            </div>
-
-            <div class=" form-group">
-                @Html.LabelFor(p => p.LastName)
-                @Html.TextBoxFor(p => p.LastName, new { @class = "form-control" })
-                @Html.ValidationMessageFor(p => p.LastName, "", new { @class = "text-danger" })
-            </div>
-
-            <div class=" form-group">
-                @Html.LabelFor(p => p.Phone)
-                @Html.TextBoxFor(p => p.Phone, new { @class = "form-control" })
-                @Html.ValidationMessageFor(p => p.Phone, "", new { @class = "text-danger" })
-            </div>
-
-            @Html.HiddenFor(p => p.Id)
-            @Html.AntiForgeryToken()
-
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-primary">Dodaj</button>
-
-                </div>
-            </div>
-        }
+@using (Html.BeginForm("CreateConsumer", "Consumers"))
+{
+    <div class=" form-group">
+        @Html.LabelFor(p => p.Name)
+        @Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Name, "", new { @class = "text-danger" })
     </div>
-</div>
+
+    <div class=" form-group">
+        @Html.LabelFor(p => p.LastName)
+        @Html.TextBoxFor(p => p.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.LastName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class=" form-group">
+        @Html.LabelFor(p => p.Phone)
+        @Html.TextBoxFor(p => p.Phone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(p => p.Phone, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.HiddenFor(p => p.Id)
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <button type="submit" class="btn btn-primary">Sačuvaj</button>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Odustani", "Index", "Consumers", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+}
 
 @section scripts
 {
-    @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jqueryval")
 }

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj": {}
+    "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj": {
+    "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj",
+        "projectUniqueName": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj",
         "projectName": "BlazorServerOrderingSystemApp",
-        "projectPath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj",
+        "projectPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\BlazorServerOrderingSystemApp.csproj",
         "packagesPath": "C:\\Users\\Milica\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\obj\\",
+        "outputPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_BlazorServer\\BlazorServerOrderingSystemApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

@@ -1,0 +1,34 @@
+﻿@model BookingApp.Models.Country
+@{
+    ViewBag.Title = "EditCountry";
+}
+
+<h2>Država</h2>
+
+@using (Html.BeginForm("EditCountry", "Countries"))
+{
+    @Html.AntiForgeryToken()
+    <hr />
+
+    <div class="form-group">
+        @Html.Label("Naziv drzave: ")
+        @Html.TextBoxFor(b => b.CountryName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.CountryName, "", new { @class = "text-danger" })
+    </div>
+
+    @Html.HiddenFor(b => b.Id)
+
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <input type="submit" value="Sacuvaj" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Cancel", "Index", "Countries", new { @class = "btn btn-success" })
+            </div>
+        </div>
+    </div>
+}

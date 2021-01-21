@@ -5257,11 +5257,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_DLL\\RestaurantOrderingSystemDataLibrary\\RestaurantOrderingSystemDataLibrary.csproj",
+      "projectUniqueName": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_DLL\\RestaurantOrderingSystemDataLibrary\\RestaurantOrderingSystemDataLibrary.csproj",
       "projectName": "RestaurantOrderingSystemDataLibrary",
-      "projectPath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_DLL\\RestaurantOrderingSystemDataLibrary\\RestaurantOrderingSystemDataLibrary.csproj",
+      "projectPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_DLL\\RestaurantOrderingSystemDataLibrary\\RestaurantOrderingSystemDataLibrary.csproj",
       "packagesPath": "C:\\Users\\Milica\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_DLL\\RestaurantOrderingSystemDataLibrary\\obj\\",
+      "outputPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_DLL\\RestaurantOrderingSystemDataLibrary\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

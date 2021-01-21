@@ -29,7 +29,9 @@ namespace BookingApp.Controllers
             ViewBag.CurrentSort = sortBy;
             ViewBag.NameSortParam = String.IsNullOrEmpty(sortBy) ? "Name desc" : "";
             ViewBag.PhoneSortParam = sortBy == "Phone" ? "phone_desc" : "Phone";
+            
             var consumers = _context.Consumers.AsQueryable();
+
             if (search != null)
             {
                 page = 1;
@@ -45,6 +47,7 @@ namespace BookingApp.Controllers
             {
                 consumers = consumers.Where(s => s.Name.Contains(search) || s.LastName.Contains(search));
             }
+
             switch (sortBy)
             {
                 case "Name desc":
@@ -63,6 +66,7 @@ namespace BookingApp.Controllers
 
             int pageSize = 10;
             int pageNumer = (page ?? 1);
+            
             return View(consumers.ToPagedList(pageNumer, pageSize));
         }
 
@@ -102,6 +106,7 @@ namespace BookingApp.Controllers
             {
                 return HttpNotFound();
             }
+
             return View("CreateConsumer", consumer);
         }
 
@@ -121,9 +126,11 @@ namespace BookingApp.Controllers
             {
                 return HttpNotFound();
             }
+
             return View(consumer);
         }
 
+        //DELETE
         [HttpPost]
         public ActionResult DeleteConsumer(int id)
         {
@@ -137,6 +144,7 @@ namespace BookingApp.Controllers
             {
                 return RedirectToAction("DeleteConsumer", new {saveChangesError = true });
             }
+
             return RedirectToAction("Index", "Consumers");
         }
 

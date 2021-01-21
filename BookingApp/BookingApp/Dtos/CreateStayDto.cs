@@ -9,7 +9,6 @@ namespace BookingApp.Dtos
     public class CreateStayDto
     {
         public Stay Stays { get; set; }
-        public IEnumerable<Country> Countries { get; set; }
         public IEnumerable<City> Cities { get; set; }
         public IEnumerable<PropertyType> PropertyTypes { get; set; }
     }

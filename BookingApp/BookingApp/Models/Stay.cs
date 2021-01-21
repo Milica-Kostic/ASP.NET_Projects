@@ -29,11 +29,6 @@ namespace BookingApp.Models
         [Required(ErrorMessage = "Izaberite grad")]
         public int CityId { get; set; }
 
-        public Country Country { get; set; }
-
-        [Required(ErrorMessage = "Izaberite drzavu")]
-        public int CountryId { get; set; }
-
         public PropertyType PropertyType { get; set; }
 
         [Required(ErrorMessage = "Izaberite tip smestaja")]

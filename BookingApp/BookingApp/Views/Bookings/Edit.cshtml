@@ -4,9 +4,9 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Izmeni</h2>
+<h2>Rezervacija</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Bookings"))
 {
     
  <hr />
@@ -25,19 +25,29 @@
     <div class="form-group">
         @Html.LabelFor(b => b.CheckIn)
         @Html.TextBoxFor(b => b.CheckIn,new { @class = "form-control"})
-        @Html.ValidationMessageFor(model => model.CheckIn, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.CheckIn, "", new { @class = "text-danger"})
     </div>
 
     <div class="form-group">
         @Html.LabelFor(b => b.CheckOut)
-        @Html.TextBoxFor(b => b.CheckOut,new { @class = "form-control"} )
-        @Html.ValidationMessageFor(model => model.CheckOut, "", new { @class = "text-danger" })
+        @Html.TextBoxFor(b => b.CheckOut,new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.CheckOut, "", new { @class = "text-danger"})
     </div>
     @Html.HiddenFor(b => b.ConsumerId)
     @Html.HiddenFor(b => b.StayId)
     @Html.AntiForgeryToken()
 
-    <div class="form-group">
-        <input type="submit" value="Save" class="btn btn-default" />
+    <div class="row">
+        <div class="col-lg-1">
+            <div class="form-actions no-color">
+                <input type="submit" value="Sačuvaj" class="btn btn-primary" />
+            </div>
+        </div>
+
+        <div class="col-lg-2">
+            <div class="form-actions no-color">
+                @Html.ActionLink("Odustani", "Index", "Bookings", new { @class = "btn btn-success" })
+            </div>
+        </div>
     </div>
 }

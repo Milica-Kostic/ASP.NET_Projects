@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\RestaurantAPP\\RazorOrderingSystemApp\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj": {}
+    "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_RazorPages\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\RestaurantAPP\\RazorOrderingSystemApp\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj": {
+    "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_RazorPages\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\RestaurantAPP\\RazorOrderingSystemApp\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj",
+        "projectUniqueName": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_RazorPages\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj",
         "projectName": "RazorOrderingSystemApp",
-        "projectPath": "D:\\Projects\\RestaurantAPP\\RazorOrderingSystemApp\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj",
+        "projectPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_RazorPages\\RazorOrderingSystemApp\\RazorOrderingSystemApp.csproj",
         "packagesPath": "C:\\Users\\Milica\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\RestaurantAPP\\RazorOrderingSystemApp\\RazorOrderingSystemApp\\obj\\",
+        "outputPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_RazorPages\\RazorOrderingSystemApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

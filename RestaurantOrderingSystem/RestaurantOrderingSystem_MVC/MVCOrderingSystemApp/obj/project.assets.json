@@ -8146,11 +8146,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\RestaurantAPP\\MVCOrderingSystemApp\\MVCOrderingSystemApp\\MVCOrderingSystemApp.csproj",
+      "projectUniqueName": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_MVC\\MVCOrderingSystemApp\\MVCOrderingSystemApp.csproj",
       "projectName": "MVCOrderingSystemApp",
-      "projectPath": "D:\\Projects\\RestaurantAPP\\MVCOrderingSystemApp\\MVCOrderingSystemApp\\MVCOrderingSystemApp.csproj",
+      "projectPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_MVC\\MVCOrderingSystemApp\\MVCOrderingSystemApp.csproj",
       "packagesPath": "C:\\Users\\Milica\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\RestaurantAPP\\MVCOrderingSystemApp\\MVCOrderingSystemApp\\obj\\",
+      "outputPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_MVC\\MVCOrderingSystemApp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

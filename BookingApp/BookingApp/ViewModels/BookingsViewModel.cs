@@ -12,8 +12,10 @@ namespace BookingApp.ViewModels
         public Booking Booking { get; set; }
         public Stay Stay { get; set; }
 
-        public IEnumerable<City> City { get; set; }
-        public IEnumerable<Country> Country { get; set; }
+        public IEnumerable<City> Cities { get; set; }
+        public IEnumerable<Country> Countries { get; set; }
         public IEnumerable<PropertyType> PropertyTypes { get; set; }
+        public IEnumerable<Consumer> Consumers { get; set; }
+        public IEnumerable<Stay> Stays { get; set; }
     }
 }

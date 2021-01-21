@@ -48,6 +48,12 @@
     <Reference Include="AutoMapper, Version=4.1.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.4.1.0\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -61,6 +67,7 @@
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -190,9 +197,12 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\StaysController.cs" />
     <Compile Include="Controllers\BookingsController.cs" />
+    <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\ConsumersController.cs" />
+    <Compile Include="Controllers\CountriesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PropertyTypesController.cs" />
     <Compile Include="Controllers\StaysController.cs" />
     <Compile Include="Dtos\CityDto.cs" />
     <Compile Include="Dtos\CountryDto.cs" />
@@ -202,21 +212,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\BookingHub.cs" />
     <Compile Include="Migrations\202007121203498_InitializingModels.cs" />
     <Compile Include="Migrations\202007121203498_InitializingModels.Designer.cs">
       <DependentUpon>202007121203498_InitializingModels.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007121207322_PopulatePropertyType.cs" />
-    <Compile Include="Migrations\202007121207322_PopulatePropertyType.Designer.cs">
-      <DependentUpon>202007121207322_PopulatePropertyType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007121219310_PopulateCountry.cs" />
-    <Compile Include="Migrations\202007121219310_PopulateCountry.Designer.cs">
-      <DependentUpon>202007121219310_PopulateCountry.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202007121228081_PopulateCities.cs" />
-    <Compile Include="Migrations\202007121228081_PopulateCities.Designer.cs">
-      <DependentUpon>202007121228081_PopulateCities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\202007121316293_NullDescription.cs" />
     <Compile Include="Migrations\202007121316293_NullDescription.Designer.cs">
@@ -237,6 +236,30 @@
     <Compile Include="Migrations\202007142213053_SeedUsers.cs" />
     <Compile Include="Migrations\202007142213053_SeedUsers.Designer.cs">
       <DependentUpon>202007142213053_SeedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101151441122_AddingDataAnnotation.cs" />
+    <Compile Include="Migrations\202101151441122_AddingDataAnnotation.Designer.cs">
+      <DependentUpon>202101151441122_AddingDataAnnotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101172225454_AddingAnnotationsForPropType.cs" />
+    <Compile Include="Migrations\202101172225454_AddingAnnotationsForPropType.Designer.cs">
+      <DependentUpon>202101172225454_AddingAnnotationsForPropType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191656539_AddCountryFKtoCity.cs" />
+    <Compile Include="Migrations\202101191656539_AddCountryFKtoCity.Designer.cs">
+      <DependentUpon>202101191656539_AddCountryFKtoCity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101191659079_RemoveCompositeKeyfromBooking.cs" />
+    <Compile Include="Migrations\202101191659079_RemoveCompositeKeyfromBooking.Designer.cs">
+      <DependentUpon>202101191659079_RemoveCompositeKeyfromBooking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101201947141_DropConstraint.cs" />
+    <Compile Include="Migrations\202101201947141_DropConstraint.Designer.cs">
+      <DependentUpon>202101201947141_DropConstraint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101211235171_AddFKConstraint.cs" />
+    <Compile Include="Migrations\202101211235171_AddFKConstraint.Designer.cs">
+      <DependentUpon>202101211235171_AddFKConstraint.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -376,7 +399,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
-    <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
     <Content Include="Scripts\DataTables\autoFill.foundation.js" />
@@ -441,11 +463,13 @@
     <Content Include="Scripts\DataTables\responsive.foundation.min.js" />
     <Content Include="Scripts\DataTables\responsive.jqueryui.js" />
     <Content Include="Scripts\DataTables\responsive.jqueryui.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.js" />
-    <Content Include="Scripts\jquery-3.3.1.min.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.js" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.js" />
+    <Content Include="Scripts\jquery.signalR-2.4.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -501,9 +525,20 @@
     <Content Include="Views\Bookings\Index.cshtml" />
     <Content Include="Views\Stays\IndexUser.cshtml" />
     <Content Include="Views\Stays\IndexNotAuthorized.cshtml" />
-    <Content Include="Views\Bookings\IndexNotAuthorized.cshtml" />
-    <Content Include="Views\Bookings\IndexUser.cshtml" />
     <Content Include="Views\Shared\_NavBarPartial.cshtml" />
+    <Content Include="Views\PropertyTypes\Index.cshtml" />
+    <Content Include="Views\PropertyTypes\CreatePropertyType.cshtml" />
+    <Content Include="Views\PropertyTypes\EditPropertyType.cshtml" />
+    <Content Include="Views\PropertyTypes\DeletePropertyType.cshtml" />
+    <Content Include="Views\Countries\Index.cshtml" />
+    <Content Include="Views\Countries\CreateCountry.cshtml" />
+    <Content Include="Views\Countries\EditCountry.cshtml" />
+    <Content Include="Views\Countries\DeleteCountry.cshtml" />
+    <Content Include="Views\Cities\CreateCity.cshtml" />
+    <Content Include="Views\Cities\EditCity.cshtml" />
+    <Content Include="Views\Cities\Index.cshtml" />
+    <Content Include="Views\Cities\DeleteCity.cshtml" />
+    <Content Include="Views\Bookings\_BookingsData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -518,21 +553,10 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202007121203498_InitializingModels.resx">
       <DependentUpon>202007121203498_InitializingModels.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007121207322_PopulatePropertyType.resx">
-      <DependentUpon>202007121207322_PopulatePropertyType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007121219310_PopulateCountry.resx">
-      <DependentUpon>202007121219310_PopulateCountry.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202007121228081_PopulateCities.resx">
-      <DependentUpon>202007121228081_PopulateCities.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007121316293_NullDescription.resx">
       <DependentUpon>202007121316293_NullDescription.cs</DependentUpon>
@@ -548,6 +572,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202007142213053_SeedUsers.resx">
       <DependentUpon>202007142213053_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101151441122_AddingDataAnnotation.resx">
+      <DependentUpon>202101151441122_AddingDataAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101172225454_AddingAnnotationsForPropType.resx">
+      <DependentUpon>202101172225454_AddingAnnotationsForPropType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191656539_AddCountryFKtoCity.resx">
+      <DependentUpon>202101191656539_AddCountryFKtoCity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101191659079_RemoveCompositeKeyfromBooking.resx">
+      <DependentUpon>202101191659079_RemoveCompositeKeyfromBooking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101201947141_DropConstraint.resx">
+      <DependentUpon>202101201947141_DropConstraint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101211235171_AddFKConstraint.resx">
+      <DependentUpon>202101211235171_AddFKConstraint.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nq+fAkrqRagG/WBkC3F83jz66HKcsuugy/8nBIm2r48d6J2geSYsAmdnoEMC6NCi5p9tV1HV2W3TmwrARU1otQ==",
+  "dgSpecHash": "/A5o5pCgwp3lYcS24iWEeaedC/tNE/Ew8dNASTMSgCvGSB+2UxVNHGTVA0nPvekvKuGf1rYtezWIpqRNJdi+cA==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_BlazorClient\\RestaurantOrderingSystem_BlazorClient\\RestaurantOrderingSystem_BlazorClient.csproj",
+  "projectFilePath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_BlazorClient\\RestaurantOrderingSystem_BlazorClient\\RestaurantOrderingSystem_BlazorClient.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Milica\\.nuget\\packages\\microsoft.aspnetcore.authorization\\3.1.6\\microsoft.aspnetcore.authorization.3.1.6.nupkg.sha512",
     "C:\\Users\\Milica\\.nuget\\packages\\microsoft.aspnetcore.components\\3.1.6\\microsoft.aspnetcore.components.3.1.6.nupkg.sha512",

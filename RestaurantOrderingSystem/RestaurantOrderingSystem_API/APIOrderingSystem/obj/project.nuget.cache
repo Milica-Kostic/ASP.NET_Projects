@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "HfezhttE0x4lXC0aUcvwVXJZez3NMT+8faOom7QrimYox/S54gazhOIr6pjLeL42MtEbeTIOKqi/dVsG6ZLq6Q==",
+  "dgSpecHash": "nlzgO+RQcALVp40ex/MZxO7699VPySZAoi6zy0rYQmJXgqftTuCynybYYBS3qY4g5CtICilnl4cerN87OZmmbw==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj",
+  "projectFilePath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Milica\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
     "C:\\Users\\Milica\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

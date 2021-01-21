@@ -9,11 +9,11 @@
 @Html.HiddenFor(s => s.Id)
 <div class="row">
     <div class="col-lg-12">
-        <p>Ime: <strong>@Model.StayName</strong></p>
-        <p>Prezime: <strong>@Model.Address</strong></p>
+        <p>Nayiv smestaja: <strong>@Model.StayName</strong></p>
+        <p>Adresa: <strong>@Model.Address</strong></p>
         <p>Cena: <strong>@Model.Price</strong></p>
         <p>Grad: <strong>@Model.City.CityName</strong></p>
-        <p>Drzava: <strong>@Model.Country.CountryName</strong></p>
+        <p>Drzava: <strong>@Model.City.Country.CountryName</strong></p>
         <p>Tip smestaja: <strong>@Model.PropertyType.TypeName</strong></p>
         <p>Opis: <strong>@Model.Description</strong></p>
     </div>

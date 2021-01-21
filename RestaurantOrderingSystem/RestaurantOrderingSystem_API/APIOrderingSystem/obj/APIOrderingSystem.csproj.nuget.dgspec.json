@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj": {}
+    "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj": {
+    "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj",
+        "projectUniqueName": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj",
         "projectName": "APIOrderingSystem",
-        "projectPath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj",
+        "projectPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_API\\APIOrderingSystem\\APIOrderingSystem.csproj",
         "packagesPath": "C:\\Users\\Milica\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\RestaurantAPP\\RestaurantOrderingSystem_API\\APIOrderingSystem\\obj\\",
+        "outputPath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_API\\APIOrderingSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "X4bWBu8F05MPL/UfuBk5xZrX8+CsORPYH5amfreu9OF/pARk3ovEyPtLz21uQTHsGe+fLFwfnPBeO8Ye6MMMgQ==",
+  "dgSpecHash": "JbnIKuY9pE32FMvV+9YZ6z9epWD4eFr4qAqaycqNLHHww+DOeIa5La3SwWb+bzoyJYos+vThHv2xF70Npzg8QA==",
   "success": true,
-  "projectFilePath": "D:\\Projects\\RestaurantAPP\\MVCOrderingSystemApp\\MVCOrderingSystemApp\\MVCOrderingSystemApp.csproj",
+  "projectFilePath": "C:\\Users\\Milica\\Desktop\\GIT\\ASP.NET_Projects\\RestaurantOrderingSystem\\RestaurantOrderingSystem_MVC\\MVCOrderingSystemApp\\MVCOrderingSystemApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Milica\\.nuget\\packages\\dapper\\2.0.35\\dapper.2.0.35.nupkg.sha512",
     "C:\\Users\\Milica\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

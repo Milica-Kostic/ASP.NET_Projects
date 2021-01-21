@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-lg-2">
         <div class="form-group">
-                @Html.ActionLink("Dodaj oglas", "CreateStay", "", new { @class = "btn btn-primary" })
+                @Html.ActionLink("Dodaj smestaj", "CreateStay", "", new { @class = "btn btn-primary" })
         </div>
     </div>
 </div>
@@ -18,6 +18,7 @@
         <tr>
             <th>Naziv</th>
             <th>Tip smestaja</th>
+            <th>Grad</th>
             <th>Cena</th>
             <th class="col-lg-1"></th>
             <th class="col-lg-1"></th>
@@ -47,6 +48,9 @@
                         data:"PropertyType.TypeName"
                     },
                     {
+                        data: "City.CityName"
+                    },
+                    {
                         data: "Price",
                         render: function (data, type, stay) {
                             return stay.Price;
@@ -55,13 +59,13 @@
                     {
                         columns: "Id",
                         render: function (data, type, stay) {
-                            return "<a href='/stays/Edit/" + stay.Id + "'>" + "<button class='btn btn-success'>Update</button>" + "</a>";
+                            return "<a href='/stays/Edit/" + stay.Id + "'>" + "<button class='btn btn-success'>Izmeni</button>" + "</a>";
                         }
                     },
                     {
                         data: "Id",
                         render: function (data) {
-                            return "<button class='btn btn-danger js-delete' data-stay-id=" + data + ">Delete</button>";
+                            return "<button class='btn btn-danger js-delete' data-stay-id=" + data + ">Izbriši</button>";
                             
                         }
                     }
