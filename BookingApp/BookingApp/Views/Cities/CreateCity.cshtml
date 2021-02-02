@@ -9,7 +9,7 @@
 {
     @Html.AntiForgeryToken();
 
-    <div class=" form-group">
+    <div class="form-group">
         @Html.LabelFor(c => c.CityName)
         @Html.TextBoxFor(c => c.CityName, new { @class = "form-control" })
         @Html.ValidationMessageFor(c => c.CityName, "", new { @class = "text-danger" })
@@ -18,7 +18,7 @@
     <div class="form-group">
         @Html.Label("Drzava")
         @Html.DropDownList("CountryId", null, "--Izaberite drzavu--", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.CountryId, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(c => c.CountryId, "", new { @class = "text-danger" })
     </div>
 
     <div class="row">

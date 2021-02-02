@@ -41,6 +41,14 @@ namespace BookingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreatePropertyType(PropertyType propertyType)
         {
+            var propTypeDb = _context.PropertyTypes.Any(p => p.TypeName == propertyType.TypeName);
+
+            if(propTypeDb == true)
+            {
+                ModelState.AddModelError("TypeName", "Vrsta smestaja vec postoji");
+                return View("CreatePropertyType", propertyType);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.PropertyTypes.Add(propertyType);
@@ -62,7 +70,7 @@ namespace BookingApp.Controllers
 
             PropertyType propertyType = _context.PropertyTypes.Find(id);
 
-            var propTypeInDb = _context.PropertyTypes.Single(c => c.Id == propertyType.Id);
+            var propTypeInDb = _context.PropertyTypes.FirstOrDefault(c => c.Id == propertyType.Id);
             propTypeInDb.TypeName = propertyType.TypeName;
 
             if (propertyType == null)

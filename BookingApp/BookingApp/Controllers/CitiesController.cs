@@ -40,8 +40,18 @@ namespace BookingApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateCity(City city)
+        public ActionResult CreateCity([Bind(Include = "Id,CityName,CountryId")] City city)
         {
+            var cityDb = _context.Cities.Any(c => c.CityName == city.CityName);
+            var countryDb = _context.Cities.Any(c => c.CountryId == city.CountryId);
+
+            if (cityDb == true && countryDb == true)
+            {
+                ModelState.AddModelError("CityName", "Grad vec postoji");
+                ViewBag.CountryId = new SelectList(_context.Countries, "Id", "CountryName", city.CountryId);
+                return View("CreateCity", city);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Cities.Add(city);
@@ -63,7 +73,7 @@ namespace BookingApp.Controllers
 
             City city = _context.Cities.Find(id);
 
-            var cityInDb = _context.Cities.Single(c => c.Id == city.Id);
+            var cityInDb = _context.Cities.FirstOrDefault(c => c.Id == city.Id);
             cityInDb.CityName = city.CityName;
             cityInDb.CountryId = city.CountryId;
 

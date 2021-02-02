@@ -8,14 +8,13 @@
     <script type="text/javascript">
         $(function () {
 
-            var hubNotify = $.connection.bookingHub;
+            var hubNotify = $.connection.BookingHub;
 
             $.connection.hub.start().done(function () {
-                console.log("Start");
                 getAll();
             });
 
-            hubNotify.client.refreshBookingData = function () {
+            hubNotify.client.refreshBookingData = function (bookings) {
                 getAll();
             };
         });

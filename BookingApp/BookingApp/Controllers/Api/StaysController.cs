@@ -25,19 +25,16 @@ namespace BookingApp.Controllers.Api
         {
             var staysDtos = _context.Stays
                                .Include(s => s.PropertyType)
-                               .Include(c => c.City)
+                               .Include(s => s.City)
                                .ToList()
                                .Select(Mapper.Map<Stay, StayDto>);
 
             return Ok(staysDtos);
         }
 
-        
-      
         public IHttpActionResult StaysInfo(int id)
         {
             var stay = _context.Stays.Include(s => s.City)
-               // .Include(s => s.Country)
                 .Include(s => s.PropertyType)
                 .SingleOrDefault(s => s.Id == id);
 

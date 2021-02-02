@@ -17,7 +17,6 @@ namespace BookingApp.App_Start
             Mapper.CreateMap<City, CityDto>();
             Mapper.CreateMap<Country, CountryDto>();
             Mapper.CreateMap<PropertyType, PropertyTypeDto>();
-            
         }
     }
 }

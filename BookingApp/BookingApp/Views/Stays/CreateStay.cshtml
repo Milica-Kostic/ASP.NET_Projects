@@ -21,7 +21,7 @@
 
     <div class="form-group">
         @Html.LabelFor(s => s.Stays.Price)
-        @Html.TextBoxFor(s => s.Stays.Price, new { @class = "form-control" })
+        @Html.TextBoxFor(s => s.Stays.Price, "{0:#}", new { @class = "form-control" })
         @Html.ValidationMessageFor(s => s.Stays.Price)
     </div>
 

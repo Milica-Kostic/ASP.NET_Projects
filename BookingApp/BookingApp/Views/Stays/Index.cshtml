@@ -27,24 +27,23 @@
     <tbody>
         @*@foreach (var stays in Model)
 
-        {<tr>
-            <td>
-                @Html.ActionLink(stays.StayName, "StaysInfo", new { id = stays.Id })
-            </td>
-            <td>
-                @stays.PropertyType.TypeName
-            </td>
-            <td>
-                @stays.Price
-            </td>
-            <td class="col-lg-2">
-                @Html.ActionLink("Edit", "Edit", new { id = stays.Id }, new { @class = "btn btn-success" })
-                <button data-stay-id="@stays.Id" class="btn btn-danger js-delete">Delete</button>
-            </td>
-        </tr>}*@
-
-    </tbody>
-</table>
+            {<tr>
+                <td>
+                    @Html.ActionLink(stays.StayName, "StaysInfo", new { id = stays.Id })
+                </td>
+                <td>
+                    @stays.PropertyType.TypeName
+                </td>
+                <td>
+                    @stays.Price
+                </td>
+                <td class="col-lg-2">
+                    @Html.ActionLink("Edit", "Edit", new { id = stays.Id }, new { @class = "btn btn-success" })
+                    <button data-stay-id="@stays.Id" class="btn btn-danger js-delete">Delete</button>
+                </td>
+            </tr>}*@
+        </tbody>
+    </table>
 
 @section scripts
 {
@@ -63,7 +62,7 @@
                         }
                     },
                     {
-                        data:"PropertyType.TypeName"
+                        data: "PropertyType.TypeName"
                     },
                     {
                         data: "City.CityName"
@@ -71,7 +70,7 @@
                     {
                         data: "Price",
                         render: function (data, type, stay) {
-                            return stay.Price;
+                            return stay.Price + " RSD";
                         }
                     },
                     {
@@ -84,7 +83,7 @@
                         data: "Id",
                         render: function (data) {
                             return "<button class='btn btn-danger js-delete' data-stay-id=" + data + ">Izbriši</button>";
-                            
+
                         }
                     }
 
@@ -103,7 +102,7 @@
                             }
                         });
                     }
-                });  
+                });
             });
         });
     </script>

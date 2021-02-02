@@ -48,17 +48,28 @@ namespace BookingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateCountry(Country country)
         {
-            if (country.Id == 0)
+            var countryDb = _context.Countries.Any(c => c.CountryName == country.CountryName);
+
+            if(countryDb == true)
             {
-                _context.Countries.Add(country);
-            }
-            else
-            {
-                var countryInDb = _context.Countries.Single(c => c.Id == country.Id);
-                countryInDb.CountryName = country.CountryName;
+                ModelState.AddModelError("CountryName", "Zemlja vec postoji");
+                return View("CreateCountry", country);
             }
 
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                if (country.Id == 0)
+                {
+                    _context.Countries.Add(country);
+                }
+                else
+                {
+                    var countryInDb = _context.Countries.FirstOrDefault(c => c.Id == country.Id);
+                    countryInDb.CountryName = country.CountryName;
+                }
+
+                _context.SaveChanges();
+            }
 
             return RedirectToAction("Index", "Countries");
         }
@@ -105,7 +116,7 @@ namespace BookingApp.Controllers
 
             Country country = _context.Countries.Find(id);
 
-            var countryInDb = _context.Countries.Single(c => c.Id == country.Id);
+            var countryInDb = _context.Countries.FirstOrDefault(c => c.Id == country.Id);
             countryInDb.CountryName = country.CountryName;
 
             if (country == null)
@@ -120,9 +131,13 @@ namespace BookingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
-            Country country = _context.Countries.Find(id);
-            _context.Countries.Remove(country);
-            _context.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                Country country = _context.Countries.Find(id);
+                _context.Countries.Remove(country);
+                _context.SaveChanges();  
+            }
+
             return RedirectToAction("Index");
         }
 

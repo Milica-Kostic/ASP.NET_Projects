@@ -10,6 +10,7 @@ using System.Data.Entity;
 using System.Net.Http;
 using System.Data.SqlClient;
 using System.Configuration;
+using BookingApp.Hubs;
 
 namespace BookingApp.Controllers
 {
@@ -81,44 +82,68 @@ namespace BookingApp.Controllers
             }
             else
             {
-                var staysInDb = _context.Stays.Single(c => c.Id == vm.Stays.Id);
+                var staysInDb = _context.Stays.FirstOrDefault(c => c.Id == vm.Stays.Id);
                 staysInDb.StayName = vm.Stays.StayName;
                 staysInDb.Address = vm.Stays.Address;
                 staysInDb.Price = vm.Stays.Price;
                 staysInDb.CityId = vm.Stays.CityId;
                 staysInDb.PropertyTypeId = vm.Stays.PropertyTypeId;
                 staysInDb.Description = vm.Stays.Description;
-
             }
 
             _context.SaveChanges();
-
             return RedirectToAction("Index", "Stays");
         }
 
-        //FILL SELECT LIST WITH JSON
-        public JsonResult CountryList(int Id)
+        //Country autofill with ADO.NET
+        //public JsonResult CountryList(int Id)
+        //{
+        //    string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+
+        //    SqlConnection connection = new SqlConnection(connectionString);
+
+        //    string query = "SELECT country.Id, country.CountryName FROM Cities AS city INNER JOIN Countries AS country ON city.CountryId = country.Id WHERE city.Id = '" + Id + "'";
+
+        //    SqlCommand cm = new SqlCommand(query, connection);
+
+        //    connection.Open();
+
+        //    SqlDataReader dataReader = cm.ExecuteReader();
+
+        //    List<SelectListItem> list = new List<SelectListItem>();
+
+        //    while (dataReader.Read())
+        //    {
+        //        list.Add(new SelectListItem { Text = dataReader[1].ToString(), Value = dataReader[0].ToString() });
+        //    }
+
+        //    connection.Close();
+
+        //    return Json(list, JsonRequestBehavior.AllowGet);
+        //}
+
+
+        //LINQ Autofill Country
+        public JsonResult CountryList(int id)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            var cities = _context.Cities.Include(c => c.Country)
+                                         .Where(c => c.CountryId == c.Country.Id)
+                                         .Where(c => c.Id == id)
+                                         .ToList();
 
-            SqlConnection connection = new SqlConnection(connectionString);
-
-            string query = "SELECT cou.Id, cou.CountryName FROM Cities AS c INNER JOIN Countries AS cou ON c.CountryId = cou.Id WHERE c.Id = '" + Id + "'";
-
-            SqlCommand cm = new SqlCommand(query, connection);
-
-            connection.Open();
-
-            SqlDataReader dataReader = cm.ExecuteReader();
+            var viewModel = new StaysViewModel
+            {
+                Stays = new Stay(),
+                Cities = cities,
+                PropertyTypes = _context.PropertyTypes.ToList()
+            };
 
             List<SelectListItem> list = new List<SelectListItem>();
 
-            while (dataReader.Read())
+            cities.ForEach(x =>
             {
-                list.Add(new SelectListItem { Text = dataReader[1].ToString(), Value = dataReader[0].ToString() });
-            }
-
-            connection.Close();
+                list.Add(new SelectListItem { Text = x.Country.CountryName, Value = x.CountryId.ToString() });
+            });
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }

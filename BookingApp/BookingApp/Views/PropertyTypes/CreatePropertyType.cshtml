@@ -13,7 +13,7 @@
     <div class="form-group">
         @Html.LabelFor(p => p.TypeName)
         @Html.TextBoxFor(p => p.TypeName, new { @class = "form-control" })
-        @Html.ValidationMessageFor(p => p.TypeName.Length, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(p => p.TypeName, "", new { @class = "text-danger" })
     </div>
 
     <div class="row">

@@ -68,6 +68,7 @@ namespace BookingApp.Controllers
         {
             ViewBag.ConsumerId = new SelectList(_context.Consumers, "Id", "Name");
             ViewBag.StayId = new SelectList(_context.Stays, "Id", "StayName");
+
             return View();
         }
 
@@ -75,6 +76,28 @@ namespace BookingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateBooking([Bind(Include = "Id,ConsumerId,StayId,CheckIn,CheckOut")] Booking booking)
         {
+            var checkIn = _context.Bookings.Any(b => b.CheckIn == booking.CheckIn);
+            var checkOut = _context.Bookings.Any(b => b.CheckOut == booking.CheckOut);
+            var stayDb = _context.Bookings.Any(b => b.StayId == booking.StayId);
+
+            if (checkIn == true && stayDb == true)
+            {
+                ModelState.AddModelError("CheckIn", "Datum je vec rezervisan");
+                ViewBag.ConsumerId = new SelectList(_context.Consumers, "Id", "Name", booking.ConsumerId);
+                ViewBag.StayId = new SelectList(_context.Stays, "Id", "StayName", booking.StayId);
+                
+                return View(booking);
+            }
+
+            if (checkOut == true && stayDb == true)
+            {
+                ModelState.AddModelError("CheckOut", "Datum je vec rezervisan");
+                ViewBag.ConsumerId = new SelectList(_context.Consumers, "Id", "Name", booking.ConsumerId);
+                ViewBag.StayId = new SelectList(_context.Stays, "Id", "StayName", booking.StayId);
+
+                return View(booking);
+            }
+
             if (booking.CheckIn < DateTime.Today)
             {
                 ModelState.AddModelError("CheckIn", "Datum mora biti veci od danasnjeg.");
@@ -89,7 +112,7 @@ namespace BookingApp.Controllers
             {
                 _context.Bookings.Add(booking);
                 _context.SaveChanges();
-                BookingHub.RefreshBookings();
+                BookingHub.RefreshBookings(booking);
                 return RedirectToAction("Index");
             }
             
@@ -103,7 +126,6 @@ namespace BookingApp.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
-            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -124,7 +146,7 @@ namespace BookingApp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Booking booking)
+        public ActionResult Edit(Booking booking, int id)
         {
             if (booking.CheckIn < DateTime.Today)
             {
@@ -140,7 +162,7 @@ namespace BookingApp.Controllers
             {
                 _context.Entry(booking).State = EntityState.Modified;
                 _context.SaveChanges();
-                BookingHub.RefreshBookings();
+                BookingHub.RefreshBookings(booking);
                 return RedirectToAction("Index");
             }
             
@@ -177,7 +199,7 @@ namespace BookingApp.Controllers
             Booking booking = _context.Bookings.Find(id);
             _context.Bookings.Remove(booking);
             _context.SaveChanges();
-            BookingHub.RefreshBookings();
+            BookingHub.RefreshBookings(booking);
 
             return RedirectToAction("Index");
         } 

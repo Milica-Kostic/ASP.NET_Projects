@@ -87,7 +87,7 @@ namespace BookingApp.Controllers
             }
             else
             {
-                var consumerInDb = _context.Consumers.Single(c => c.Id == consumer.Id);
+                var consumerInDb = _context.Consumers.FirstOrDefault(c => c.Id == consumer.Id);
                 consumerInDb.Name = consumer.Name;
                 consumerInDb.Phone = consumer.Phone;
                 consumerInDb.LastName = consumer.LastName;
