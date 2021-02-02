@@ -12,6 +12,8 @@ BookingApp
 - Entity
 - Many to Many relacija
 - JSON format za razmenu podataka
+- SignalR tehnologija
+- Automatsko popunjavanje Zemlje na osnovu Grada 
 
 
 
